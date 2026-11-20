@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel Press — Cover Art Maker</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ff2e63'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main class="app">
+  <aside class="panel" aria-label="Cover controls">
+    <header class="brand">
+      <h1>Panel Press</h1>
+      <p>Turn your photos into a multi-panel poster cover.</p>
+    </header>
+
+    <section class="group" aria-label="Photos">
+      <h2>1 · Photos <span class="hint">up to 4</span></h2>
+      <label class="file-btn">Add photos from your machine
+        <input id="photoFiles" type="file" accept="image/*" multiple>
+      </label>
+      <div id="photoStrip" class="photo-strip"></div>
+      <div class="samples">
+        <span>Or try a sample:</span>
+        <button type="button" data-sample="pier">Pier</button>
+        <button type="button" data-sample="boulevard">Boulevard</button>
+        <button type="button" data-sample="sunset-street">Sunset St</button>
+        <button type="button" data-sample="neon-beach">Neon Beach</button>
+      </div>
+    </section>
+
+    <section class="group" aria-label="Layout">
+      <h2>2 · Layout</h2>
+      <div id="layoutPicker" class="picker"></div>
+    </section>
+
+    <section class="group" aria-label="Colour grade">
+      <h2>3 · Colour grade</h2>
+      <div id="gradePicker" class="picker"></div>
+    </section>
+
+    <section class="group" aria-label="Words">
+      <h2>4 · Words</h2>
+      <label>Caption
+        <input id="caption" type="text" maxlength="32" value="Sunset Heist">
+      </label>
+      <label>Subtitle (neon script)
+        <input id="subtitle" type="text" maxlength="40" value="Neon Nights">
+      </label>
+      <label>Ribbon badge
+        <input id="ribbon" type="text" maxlength="18" value="Wanted">
+      </label>
+      <label class="check"><input id="titleBlock" type="checkbox" checked> Title band behind the caption</label>
+      <div class="heat-row">
+        <span>Heat</span>
+        <div id="heatPicker" class="heat-picker" role="radiogroup" aria-label="Heat stars"></div>
+      </div>
+    </section>
+
+    <section class="group" aria-label="Selected panel">
+      <h2>5 · Selected panel</h2>
+      <p class="hint">Click a panel on the cover, then drag it to move the photo and scroll to zoom.</p>
+      <label>Photo in this panel
+        <select id="panelPhoto"></select>
+      </label>
+      <label>Zoom <span id="zoomVal" class="val">100%</span>
+        <input id="panelZoom" type="range" min="20" max="300" value="100">
+      </label>
+      <label>Move left / right
+        <input id="panelOx" type="range" min="-50" max="50" value="0">
+      </label>
+      <label>Move up / down
+        <input id="panelOy" type="range" min="-100" max="100" value="0">
+      </label>
+      <button id="panelReset" type="button" class="ghost">Centre this photo</button>
+    </section>
+
+    <section class="group" aria-label="Finish">
+      <h2>6 · Finish</h2>
+      <label>Grain <span id="grainVal" class="val">50%</span>
+        <input id="grain" type="range" min="0" max="100" value="50">
+      </label>
+      <label>Vignette <span id="vigVal" class="val">60%</span>
+        <input id="vignette" type="range" min="0" max="100" value="60">
+      </label>
+      <div class="undo-row">
+        <button id="undoBtn" type="button" class="ghost">Undo</button>
+        <button id="redoBtn" type="button" class="ghost">Redo</button>
+      </div>
+    </section>
+
+    <section class="group export" aria-label="Export">
+      <h2>Export PNG</h2>
+      <button id="exportSquare" type="button">Square · 1080 x 1080</button>
+      <button id="exportPortrait" type="button">Portrait · 1080 x 1350</button>
+      <button id="exportLandscape" type="button" class="primary">Landscape · 1920 x 1080</button>
+      <p id="status" role="status"></p>
+    </section>
+  </aside>
+
+  <section class="stage">
+    <div class="aspect-row" role="group" aria-label="Preview size">
+      <button type="button" data-aspect="landscape" class="aspect-btn">Landscape</button>
+      <button type="button" data-aspect="square" class="aspect-btn">Square</button>
+      <button type="button" data-aspect="portrait" class="aspect-btn">Portrait</button>
+      <span id="previewLabel" class="preview-label"></span>
+    </div>
+    <canvas id="cover" width="1920" height="1080" aria-label="The cover preview"></canvas>
+    <p class="stage-hint">Click a panel to select it · drag to move its photo · scroll to zoom · double-click a panel to cycle its photo</p>
+  </section>
+</main>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
